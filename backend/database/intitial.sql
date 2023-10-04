@@ -1,3 +1,9 @@
+CREATE TABLE usuarios (
+    id serial PRIMARY KEY,
+    username varchar(50),
+    password varchar(50)
+)
+
 CREATE TABLE contas (
     id serial PRIMARY KEY,
     banco varchar(20),
