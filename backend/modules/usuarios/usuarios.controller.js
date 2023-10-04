@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const bCrypt = require("bcryptjs");
-const usuarioService =  require('./usuarios.service');
+const usuarioService = require('./usuarios.service');
 
 module.exports = {
     login: async (req, res, next) => {
@@ -18,6 +18,14 @@ module.exports = {
         }
 
         res.status(200).json({ message: "Login inválido!" });
+    },
+
+    register: async (req, res) => {
+        const { username, password } = req.body;
+        const passwordCriptografada = await bCrypt.hash(password, 10);
+        console.log(passwordCriptografada);
+        const { msg } = await usuarioService.register(username, passwordCriptografada);
+        res.json({ message: msg });
     },
 
     autenticaJWT: async (req, res, next) => {

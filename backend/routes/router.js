@@ -9,6 +9,7 @@ routerApp.use((req, res, next) => {
 });
 
 routerApp.post('/login', usuariosController.login);
+routerApp.post('/register', usuariosController.register);
 routerApp.post('/logout', usuariosController.autenticaJWT, usuariosController.logout);
 
 routerApp.get('/contas', usuariosController.autenticaJWT, contasContoller.getAllContas);
