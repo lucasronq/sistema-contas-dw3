@@ -23,7 +23,6 @@ module.exports = {
     register: async (req, res) => {
         const { username, password } = req.body;
         const passwordCriptografada = await bCrypt.hash(password, 10);
-        console.log(passwordCriptografada);
         const { msg } = await usuarioService.register(username, passwordCriptografada);
         res.json({ message: msg });
     },

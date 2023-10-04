@@ -23,14 +23,15 @@ module.exports = {
 
     insertConta: async (contaBody) => {
         const contaDtoKeys = Object.keys(new ContasDTO());
+        console.log(contaDtoKeys, contaBody)
         let msg = "ok";
         try {
             await db.query(
-                `INSERT INTO contas VALUES (${contaDtoKeys.map((key, i) => (`$${i + 1}`)).join(', ')})`,
+                `INSERT INTO contas (banco, agencia, conta_corrente, receber, pagar) VALUES (${contaDtoKeys.map((key, i) => (`$${i + 1}`)).join(', ')})`,
                 contaDtoKeys.map((key) => contaBody[key])
             )
         } catch (err) {
-            msg = 'contas.service.insertConta ' + err.detail;
+            msg = 'contas.service.insertConta ' + err;
         }
         return { msg };
     },
@@ -40,11 +41,11 @@ module.exports = {
         let msg = "ok";
         try {
             await db.query(
-                `UPDATE contas SET (${contaDtoKeys.map((key, i) => (`${key} = ${i + 1}`)).join(', ')}) WHERE id = ${id}`,
+                `UPDATE contas SET ${contaDtoKeys.map((key, i) => (`${key} = $${i + 1}`)).join(', ')} WHERE id = ${id}`,
                 contaDtoKeys.map((key) => contaBody[key])
             )
         } catch (err) {
-            msg = 'contas.service.updateContaById ' + err.detail;
+            msg = 'contas.service.updateContaById ' + err;
         }
         return { msg };
     },
@@ -56,7 +57,7 @@ module.exports = {
                 ` UPDATE contas SET deleted = true WHERE id = $1`,
                 [id])
         } catch (err) {
-            msg = 'contas.service.deleteContaById ' + err.detail;
+            msg = 'contas.service.deleteContaById ' + err;
         }
         return { msg };
     }

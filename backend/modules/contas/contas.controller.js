@@ -13,14 +13,12 @@ module.exports = {
     },
 
     insertConta: async (req, res) => {
-        const { data } = req.body;
-        const { msg } = await contasService.insertConta(data);
+        const { msg } = await contasService.insertConta(req.body);
         res.json({ status: msg });
     },
 
     updateContaById: async (req, res) => {
-        const { id, data } = req.body;
-        const { msg } = await contasService.updateContaById(id, data);
+        const { msg } = await contasService.updateContaById(req.body.id, req.body);
         res.json({ status: msg });
     },
 
