@@ -6,7 +6,6 @@ class ContasDTO {
     conta_corrente;
     receber;
     pagar;
-    deleted;
 }
 
 module.exports = {
